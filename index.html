@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Professionnel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #6b21a8 100%);
+            color: #f3f4f6;
+            scroll-behavior: smooth;
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9) 0%, rgba(107, 33, 168, 0.9) 100%);
+        }
+        .card-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .project-card:hover {
+            transform: scale(1.03);
+        }
+        .input-field {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: rgba(165, 180, 252, 0.8);
+        }
+        .btn-send {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-send:hover::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.1);
+            animation: ripple 1s linear infinite;
+        }
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 50;
+        }
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a 0%, #6b21a8 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Loader -->
+    <div class="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle" class="dark-mode-toggle bg-indigo-700 hover:bg-indigo-800 text-white rounded-full p-3 shadow-lg transition-all duration-300">
+        <i class="fas fa-moon text-xl"></i>
+    </button>
+
+    <!-- Header -->
+    <header class="header-gradient w-full py-20 px-4 md:px-10 lg:px-20 flex flex-col items-center justify-center text-center relative overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-20">
+                <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-purple-400 filter blur-3xl animate-pulse"></div>
+                <div class="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-blue-400 filter blur-3xl animate-pulse delay-300"></div>
+            </div>
+        </div>
+        
+        <div data-aos="fade-down" data-aos-duration="1000">
+            <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_3rwasyjy.json" background="transparent" speed="1" style="width: 150px; height: 150px;" loop autoplay></lottie-player>
+        </div>
+        
+        <h1 data-aos="fade-up" data-aos-duration="800" class="text-4xl md:text-6xl font-bold mt-6 mb-4">Razafindrazefania Perry</h1>
+        <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" class="text-xl md:text-2xl text-indigo-200 mb-8">Développeur Web & Designer UI/UX</p>
+        
+        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="400" class="flex space-x-4">
+            <a href="#about" class="px-6 py-3 bg-white text-indigo-900 rounded-full font-medium hover:bg-indigo-100 transition-all duration-300">À propos</a>
+            <a href="#projects" class="px-6 py-3 border-2 border-white text-white rounded-full font-medium hover:bg-white hover:text-indigo-900 transition-all duration-300">Mes projets</a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 md:px-10 lg:px-20 max-w-6xl mx-auto">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div data-aos="fade-right" class="lg:w-1/3 flex justify-center">
+                <div class="relative">
+                    <img src="razafindrazefaniaperry.png" alt="Razafindrazefania Perry" class="w-64 h-64 rounded-full object-cover border-4 border-white shadow-xl">
+                    <div class="absolute -bottom-3 -right-3 bg-indigo-600 p-4 rounded-full shadow-lg">
+                        <i class="fas fa-code text-white text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div data-aos="fade-left" class="lg:w-2/3">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">À propos de moi</h2>
+                <p class="text-lg text-gray-200 mb-6">
+                    Passionné par le développement web et le design depuis plus de 4 ans, je crée des expériences digitales à la fois esthétiques et fonctionnelles. Mon approche combine créativité et rigueur technique pour répondre aux besoins spécifiques de chaque projet.
+                </p>
+                <p class="text-lg text-gray-200 mb-8">
+                    Master One en Communication Multimedia à l'Université de Fianarantsoa à l'Ecole de Management et d'Innovation Technologique (EMIT), j'ai travaillé avec diverses startups et agences digitales, développant ainsi une expertise polyvalente couvrant le front-end, et le design d'interface.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-map-marker-alt text-indigo-300 mr-2"></i>
+                        <span>Fianarantsoa Madagascar</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-envelope text-indigo-300 mr-2"></i>
+                        <span>prrzefania@gmail.com</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-phone text-indigo-300 mr-2"></i>
+                        <span>+261 34 11 838 00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Skills Section -->
+<section id="skills" class="py-20 px-4 md:px-10 lg:px-20 bg-gradient-to-b from-indigo-900/50 to-purple-900/50">
+    <div class="max-w-6xl mx-auto">
+        <div data-aos="fade-up" class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Mes Compétences</h2>
+            <p class="text-xl text-indigo-200 max-w-2xl mx-auto">Un panel de technologies maîtrisées pour répondre à vos besoins digitaux</p>
+        </div>
+        
+       
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+            <!-- Frontend Skills -->
+            <div data-aos="fade-up" data-aos-delay="100" class="skill-card card-glass rounded-xl p-6 transition-all duration-300 hover:shadow-lg">
+                <div class="flex items-center mb-4">
+                    <div class="bg-indigo-600 p-3 rounded-lg mr-4">
+                        <i class="fas fa-laptop-code text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Développement Web</h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">HTML5</span>
+                            <span class="text-sm">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-indigo-500 h-2 rounded-full" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">CSS3</span>
+                            <span class="text-sm">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-indigo-500 h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">SEO</span>
+                            <span class="text-sm">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-indigo-500 h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">Optimisation Page Web</span>
+                            <span class="text-sm">88%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-indigo-500 h-2 rounded-full" style="width: 88%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Design Skills -->
+            <div data-aos="fade-up" data-aos-delay="200" class="skill-card card-glass rounded-xl p-6 transition-all duration-300 hover:shadow-lg">
+                <div class="flex items-center mb-4">
+                    <div class="bg-pink-600 p-3 rounded-lg mr-4">
+                        <i class="fas fa-paint-brush text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Design Graphique</h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">Photoshop</span>
+                            <span class="text-sm">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-pink-500 h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">Figma</span>
+                            <span class="text-sm">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-pink-500 h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">UI/UX Design</span>
+                            <span class="text-sm">88%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-pink-500 h-2 rounded-full" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">Illustrator</span>
+                            <span class="text-sm">80%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-pink-500 h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Design Skills -->
+            <div data-aos="fade-up" data-aos-delay="300" class="skill-card card-glass rounded-xl p-6 transition-all duration-300 hover:shadow-lg">
+                <div class="flex items-center mb-4">
+                    <div class="bg-purple-600 p-3 rounded-lg mr-4">
+                        <i class="fas fa-palette text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Outils Créatifs</h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">Canva</span>
+                            <span class="text-sm">92%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">Design d'Interface</span>
+                            <span class="text-sm">87%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 87%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">Prototypage</span>
+                            <span class="text-sm">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm">Identité Visuelle</span>
+                            <span class="text-sm">83%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 83%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+   <!-- Projects Section -->
+<section id="projects" class="py-20 px-4 md:px-10 lg:px-20 max-w-6xl mx-auto">
+    <div data-aos="fade-up" class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Mes Projets</h2>
+        <p class="text-xl text-indigo-200 max-w-2xl mx-auto">Réalisations récentes en design et développement</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Projet SEO -->
+        <div data-aos="zoom-in" data-aos-delay="100" class="project-card card-glass rounded-xl overflow-hidden transition-all duration-300">
+            <div class="h-48 overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Optimisation SEO" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                    <span class="bg-green-600 text-white text-xs px-2 py-1 rounded">SEO</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-3">Optimisation SEO Avancée</h3>
+                <p class="text-gray-300 mb-4">Stratégie complète d'optimisation pour un site (+120% de trafic organique en 3 mois).</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="bg-green-900/50 text-green-200 text-xs px-3 py-1 rounded-full">Keywords Research</span>
+                    <span class="bg-green-900/50 text-green-200 text-xs px-3 py-1 rounded-full">Schema.org</span>
+                    <span class="bg-green-900/50 text-green-200 text-xs px-3 py-1 rounded-full">Performance</span>
+                </div>
+                <a href="https://razafindrazefaniaperry.github.io/razafindrazefania.github.io/" class="text-indigo-400 hover:text-indigo-300 flex items-center">
+                    <i class="fas fa-chart-line mr-2"></i> Voir les résultats
+                </a>
+            </div>
+        </div>
+
+        <!-- Projet Figma -->
+        <div data-aos="zoom-in" data-aos-delay="200" class="project-card card-glass rounded-xl overflow-hidden transition-all duration-300">
+            <div class="h-48 overflow-hidden relative">
+                <img src="figma.png" alt="Maquette Figma" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                    <span class="bg-pink-600 text-white text-xs px-2 py-1 rounded">FIGMA</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-3">Design UI/UX Mobile/Desktpo</h3>
+                <p class="text-gray-300 mb-4">Bibliothèque de composants réutilisables avec variables et auto-layout.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="bg-pink-900/50 text-pink-200 text-xs px-3 py-1 rounded-full">Design</span>
+                    <span class="bg-pink-900/50 text-pink-200 text-xs px-3 py-1 rounded-full">Prototypage</span>
+                    <span class="bg-pink-900/50 text-pink-200 text-xs px-3 py-1 rounded-full">Wireframe</span>
+                </div>
+                <a href="#" class="text-indigo-400 hover:text-indigo-300 flex items-center">
+                    <i class="fab fa-figma mr-2"></i> Accéder au prototype
+                </a>
+            </div>
+        </div>
+
+        <!-- Projet Identité Visuelle -->
+        <div data-aos="zoom-in" data-aos-delay="300" class="project-card card-glass rounded-xl overflow-hidden transition-all duration-300">
+            <div class="h-48 overflow-hidden relative">
+                <img src="identite-visuelle.jpeg" alt="Identité Visuelle" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                    <span class="bg-purple-600 text-white text-xs px-2 py-1 rounded">BRANDING</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-semibold mb-3">Identité Corporate</h3>
+                <p class="text-gray-300 mb-4">Direction artistique complète pour une startup tech (logo, palette, guidelines).</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="bg-purple-900/50 text-purple-200 text-xs px-3 py-1 rounded-full">Logo Design</span>
+                    <span class="bg-purple-900/50 text-purple-200 text-xs px-3 py-1 rounded-full">Charte Graphique</span>
+                    <span class="bg-purple-900/50 text-purple-200 text-xs px-3 py-1 rounded-full">Supports Print</span>
+                </div>
+                <a href="#" class="text-indigo-400 hover:text-indigo-300 flex items-center">
+                    <i class="fas fa-book-open mr-2"></i> Voir la charte
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div data-aos="fade-up" data-aos-delay="400" class="text-center mt-12">
+        <a href="#" class="inline-flex items-center px-6 py-3 border-2 border-white text-white rounded-full font-medium hover:bg-white hover:text-indigo-900 transition-all duration-300">
+            Voir tous mes projets <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+</section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 md:px-10 lg:px-20 bg-gradient-to-b from-purple-900/50 to-indigo-900/50">
+        <div class="max-w-4xl mx-auto">
+            <div data-aos="fade-up" class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Contactez-moi</h2>
+                <p class="text-xl text-indigo-200 max-w-2xl mx-auto">Disponible pour de nouvelles opportunités et collaborations</p>
+            </div>
+            
+            <div class="card-glass rounded-xl p-8">
+                <form id="contactForm" class="space-y-6">
+                    <div data-aos="fade-up" data-aos-delay="100" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <label for="name" class="block text-sm font-medium mb-1">Nom complet</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-user text-indigo-400"></i>
+                                </div>
+                                <input type="text" id="name" name="name" class="input-field w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="Votre nom" required>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <label for="email" class="block text-sm font-medium mb-1">Email</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-indigo-400"></i>
+                                </div>
+                                <input type="email" id="email" name="email" class="input-field w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="Votre email" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div data-aos="fade-up" data-aos-delay="200" class="relative">
+                        <label for="subject" class="block text-sm font-medium mb-1">Sujet</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-tag text-indigo-400"></i>
+                            </div>
+                            <input type="text" id="subject" name="subject" class="input-field w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="Objet du message" required>
+                        </div>
+                    </div>
+                    
+                    <div data-aos="fade-up" data-aos-delay="300" class="relative">
+                        <label for="message" class="block text-sm font-medium mb-1">Message</label>
+                        <div class="relative">
+                            <div class="absolute top-3 left-3">
+                                <i class="fas fa-comment-dots text-indigo-400"></i>
+                            </div>
+                            <textarea id="message" name="message" rows="5" class="input-field w-full pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="Votre message" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div data-aos="fade-up" data-aos-delay="400" class="flex items-center">
+                        <input id="captcha" type="checkbox" class="w-4 h-4 text-indigo-600 bg-gray-700 border-gray-600 rounded focus:ring-indigo-500" required>
+                        <label for="captcha" class="ml-2 text-sm">Je ne suis pas un robot</label>
+                    </div>
+                    
+                    <div data-aos="fade-up" data-aos-delay="500" class="pt-4">
+                        <button type="submit" class="btn-send w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300">
+                            Envoyer le message <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- Success Message (hidden by default) -->
+                <div id="successMessage" class="hidden mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                    <div class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2 text-xl"></i>
+                        <span class="font-medium">Votre message a été envoyé avec succès ! Je vous répondrai dès que possible.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div data-aos="fade-up" data-aos-delay="600" class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 text-center">
+                <div class="card-glass p-6 rounded-xl">
+                    <div class="bg-indigo-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">Adresse</h3>
+                    <p class="text-indigo-200">123 Rue de Paris, 75000 Paris</p>
+                </div>
+                <div class="card-glass p-6 rounded-xl">
+                    <div class="bg-indigo-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-envelope text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">Email</h3>
+                    <p class="text-indigo-200">contact@johndoe.dev</p>
+                </div>
+                <div class="card-glass p-6 rounded-xl">
+                    <div class="bg-indigo-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-phone text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">Téléphone</h3>
+                    <p class="text-indigo-200">+33 6 12 34 56 78</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 md:px-10 lg:px-20 bg-gray-900/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-2xl font-bold">John Doe</h2>
+                    <p class="text-indigo-300 mt-2">Développeur Web & Designer UI/UX</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#" class="text-indigo-300 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-indigo-300 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-indigo-300 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-indigo-300 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-dribbble text-xl"></i>
+                    </a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-indigo-300">© 2023 John Doe. Tous droits réservés.</p>
+                    <p class="text-sm text-indigo-400 mt-1">Développé avec passion et ♥</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: false
+        });
+
+        // Hide loader when page is loaded
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loader').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.loader').style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const icon = darkModeToggle.querySelector('i');
+        
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark');
+            
+            if (document.body.classList.contains('dark')) {
+                document.body.style.background = '#111827';
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                document.body.style.background = 'linear-gradient(135deg, #1e3a8a 0%, #6b21a8 100%)';
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            setTimeout(function() {
+                contactForm.reset();
+                successMessage.classList.remove('hidden');
+                
+                // Hide success message after 5 seconds
+                setTimeout(function() {
+                    successMessage.classList.add('hidden');
+                }, 5000);
+            }, 1000);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add parallax effect to header
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset;
+            const header = document.querySelector('header');
+            
+            if (header) {
+                header.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+            }
+        });
+    </script>
+</body>
+</html>
